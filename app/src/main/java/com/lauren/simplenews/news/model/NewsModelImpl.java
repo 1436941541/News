@@ -1,5 +1,7 @@
 package com.lauren.simplenews.news.model;
 
+import android.util.Log;
+
 import com.lauren.simplenews.beans.NewsBean;
 import com.lauren.simplenews.beans.NewsDetailBean;
 import com.lauren.simplenews.commons.Urls;
@@ -28,6 +30,7 @@ public class NewsModelImpl implements NewsModel {
         OkHttpUtils.ResultCallback<String> loadNewsCallback = new OkHttpUtils.ResultCallback<String>() {
             @Override
             public void onSuccess(String response) {
+                Log.d("yyj", "onSuccess: "+Thread.currentThread());
                 List<NewsBean> newsBeanList = NewsJsonUtils.readJsonNewsBeans(response, getID(type));
                 listener.onSuccess(newsBeanList);
             }

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!--AppBarLayout继承自LinearLayout，布局方向为垂直方向.它可以让你定制当某个可滚动View的滚动手势发生变化时，其内部的子View实现何种动-->
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,7 +13,11 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:tabIndicatorColor="@color/icons"/>
+            app:tabIndicatorColor="@color/icons"
+            />
+        <!--tabIndicatorColor选中时游标的颜色-->
+        <!--选中时的字体颜色app:tabSelectedTextColor="@color/red"-->
+        <!--未选中时的字体颜色app:tabTextColor="@color/red"-->
     </android.support.design.widget.AppBarLayout>
 
 

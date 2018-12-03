@@ -42,7 +42,6 @@ public class NewsDetailActivity extends SwipeBackActivity implements NewsDetailV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mProgressBar = (ProgressBar) findViewById(R.id.progress);
         mTVNewsContent = (HtmlTextView) findViewById(R.id.htNewsContent);
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -3,7 +3,7 @@ package com.lauren.simplenews.utils;
 import android.util.Log;
 
 /**
- * Description : 日子工具类
+ * Description : 日志工具类
  * Author : lauren
  * Email  : lauren.liuling@gmail.com
  * Blog   : http://www.liuling123.com

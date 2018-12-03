@@ -6,8 +6,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.lauren.simplenews.R;
 import com.lauren.simplenews.about.widget.AboutFragment;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
+        //mDrawerLayout与mDrawerToggle搭配使用，实现炫酷效果
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open,
                 R.string.drawer_close);
@@ -46,10 +48,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         setupDrawerContent(mNavigationView);
-
         mMainPresenter = new MainPresenterImpl(this);
-
         switch2News();
+//        getSupportActionBar().setTitle("新闻");
     }
 
     @Override
@@ -79,23 +80,27 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        mMainPresenter.switchNavigation(menuItem.getItemId());
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
+                        mMainPresenter.switchNavigation(menuItem.getItemId());//调用present层的来让view层换界面
+                        menuItem.setChecked(true);//选中点击的
+                        mDrawerLayout.closeDrawers();//关闭侧滑栏
                         return true;
                     }
                 });
     }
-
+    /*
+    * 进去默认显示的是新闻这个碎片
+    * */
     @Override
     public void switch2News() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new NewsFragment()).commit();
+        Log.d("how", "switch2News: ");
         mToolbar.setTitle(R.string.navigation_news);
     }
 
     @Override
     public void switch2Images() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ImageFragment()).commit();
+        Log.d("how", "switch2Image: ");
         mToolbar.setTitle(R.string.navigation_images);
     }
 

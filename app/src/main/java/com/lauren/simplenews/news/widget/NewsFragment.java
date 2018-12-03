@@ -1,5 +1,6 @@
 package com.lauren.simplenews.news.widget;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +31,7 @@ public class NewsFragment extends Fragment {
     public static final int NEWS_TYPE_CARS = 2;
     public static final int NEWS_TYPE_JOKES = 3;
 
-    private TabLayout mTablayout;
+    private TabLayout mTablayout;//代表上面的4个头条啥的
     private ViewPager mViewPager;
 
     @Nullable
@@ -38,14 +40,38 @@ public class NewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_news, null);
         mTablayout = (TabLayout) view.findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(4);
         setupViewPager(mViewPager);
-        mTablayout.addTab(mTablayout.newTab().setText(R.string.top));
-        mTablayout.addTab(mTablayout.newTab().setText(R.string.nba));
-        mTablayout.addTab(mTablayout.newTab().setText(R.string.cars));
-        mTablayout.addTab(mTablayout.newTab().setText(R.string.jokes));
-        mTablayout.setupWithViewPager(mViewPager);
+        mTablayout.setupWithViewPager(mViewPager);//这个会把tavlayout清除掉，如果写在后面手动添加时会展示不出来
+//        mTablayout.addTab(mTablayout.newTab().setText(R.string.top));
+//        mTablayout.addTab(mTablayout.newTab().setText(R.string.nba));
+//        mTablayout.addTab(mTablayout.newTab().setText(R.string.cars));
+//        mTablayout.addTab(mTablayout.newTab().setText(R.string.jokes));
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.d("how", "onDestroyView: ");
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d("how", "onDestroy: ");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        Log.d("how", "onDetach: ");
+        super.onDetach();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        Log.d("how", "onAttach: ");
+        super.onAttach(context);
     }
 
     private void setupViewPager(ViewPager mViewPager) {
@@ -56,7 +82,8 @@ public class NewsFragment extends Fragment {
         adapter.addFragment(NewsListFragment.newInstance(NEWS_TYPE_CARS), getString(R.string.cars));
         adapter.addFragment(NewsListFragment.newInstance(NEWS_TYPE_JOKES), getString(R.string.jokes));
         mViewPager.setAdapter(adapter);
-    }
+
+}
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();

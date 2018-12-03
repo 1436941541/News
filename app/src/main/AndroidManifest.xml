@@ -17,6 +17,12 @@
         <activity
             android:name=".main.widget.MainActivity"
             android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".news.widget.NewsDetailActivity"
+            android:label="@string/title_activity_news_detail"
+            android:theme="@style/AppTheme.NoActionBar.Translucent" />
+        <activity android:name=".splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,10 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".news.widget.NewsDetailActivity"
-            android:label="@string/title_activity_news_detail"
-            android:theme="@style/AppTheme.NoActionBar.Translucent"></activity>
+        <activity android:name=".guide.GuideActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
     </application>
 
 </manifest>

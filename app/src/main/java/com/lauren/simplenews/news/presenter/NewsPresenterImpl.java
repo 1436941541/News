@@ -1,5 +1,7 @@
 package com.lauren.simplenews.news.presenter;
 
+import android.util.Log;
+
 import com.lauren.simplenews.beans.NewsBean;
 import com.lauren.simplenews.commons.Urls;
 import com.lauren.simplenews.news.model.NewsModel;
@@ -33,6 +35,7 @@ public class NewsPresenterImpl implements NewsPresenter, OnLoadNewsListListener 
     @Override
     public void loadNews(final int type, final int pageIndex) {
         String url = getUrl(type, pageIndex);
+
         LogUtils.d(TAG, url);
         //只有第一页的或者刷新的时候才显示刷新进度条
         if(pageIndex == 0) {
@@ -74,6 +77,7 @@ public class NewsPresenterImpl implements NewsPresenter, OnLoadNewsListListener 
 
     @Override
     public void onSuccess(List<NewsBean> list) {
+        Log.d("yyj", "onon: "+Thread.currentThread());
         mNewsView.hideProgress();
         mNewsView.addNews(list);
     }

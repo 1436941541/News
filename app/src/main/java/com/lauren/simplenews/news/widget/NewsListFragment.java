@@ -1,5 +1,6 @@
 package com.lauren.simplenews.news.widget;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,17 +59,30 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "onAttach: ");
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNewsPresenter = new NewsPresenterImpl(this);
         mType = getArguments().getInt("type");
+        Log.d(TAG, "onCreate: "+mType);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onActivityCreated: "+mType);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_newslist, null);
-
+        Log.d(TAG, "onCreateView: "+mType);
         mSwipeRefreshWidget = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_widget);
         mSwipeRefreshWidget.setColorSchemeResources(R.color.primary,
                 R.color.primary_dark, R.color.primary_light,
@@ -79,7 +94,7 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
+        Log.d("yyj", "loadNews: "+Thread.currentThread());
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new NewsAdapter(getActivity().getApplicationContext());
         mAdapter.setOnItemClickListener(mOnItemClickListener);

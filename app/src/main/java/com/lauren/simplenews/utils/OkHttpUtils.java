@@ -2,6 +2,7 @@ package com.lauren.simplenews.utils;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.google.gson.internal.$Gson$Types;
 import com.squareup.okhttp.Callback;
@@ -67,12 +68,14 @@ public class OkHttpUtils {
             @Override
             public void onFailure(Request request, final IOException e) {
                 sendFailCallback(callback, e);
+                Log.d(TAG, "onFailure: "+Thread.currentThread());
             }
 
             @Override
             public void onResponse(Response response) throws IOException {
                 try {
                     String str = response.body().string();
+
                     if (callback.mType == String.class) {
                         sendSuccessCallBack(callback, str);
                     } else {
@@ -154,12 +157,12 @@ public class OkHttpUtils {
         }
 
         static Type getSuperclassTypeParameter(Class<?> subclass) {
-            Type superclass = subclass.getGenericSuperclass();
+            Type superclass = subclass.getGenericSuperclass();//获得带有泛型的父类
             if (superclass instanceof Class) {
                 throw new RuntimeException("Missing type parameter.");
             }
-            ParameterizedType parameterized = (ParameterizedType) superclass;
-            return $Gson$Types.canonicalize(parameterized.getActualTypeArguments()[0]);
+            ParameterizedType parameterized = (ParameterizedType) superclass;//参数化类型，获得泛型
+            return $Gson$Types.canonicalize(parameterized.getActualTypeArguments()[0]);//泛型可能有多个，获得泛型数组
         }
 
         /**
